@@ -22,6 +22,47 @@
 session_start();
 require_once('../config/config.php');
 require_once('../config/codeGen.php');
+
+/* Sign Up As Customer */
+if (isset($_POST['Register'])) {
+    $customer_name = $_POST['customer_name'];
+    $customer_address = $_POST['customer_address'];
+    $customer_email = $_POST['customer_email'];
+    $customer_login_id = $sys_gen_id;
+
+    /* Customer Auth  */
+    $login_username = $_POST['login_username'];
+    $login_password = sha1(md5($_POST['login_password']));
+    $login_rank = 'Customer';
+
+    /* Prevent Double Entries */
+    $sql = "SELECT * FROM  login WHERE login_username = '$login_username'   ";
+    $res = mysqli_query($mysqli, $sql);
+    if (mysqli_num_rows($res) > 0) {
+        $row = mysqli_fetch_assoc($res);
+        if ($login_username == $row['login_username']) {
+            $err =  "Login Username Already Exists";
+        }
+    } else {
+        $query = "INSERT INTO customer (customer_name, customer_address, customer_email, customer_login_id) VALUES(?,?,?,?)";
+        $auth = "INSERT INTO login (login_id, login_username,login_password, login_rank) VALUES(?,?,?,?)";
+
+        $stmt = $mysqli->prepare($query);
+        $authstmt = $mysqli->prepare($auth);
+
+        $rc = $stmt->bind_param('ssss', $customer_name, $customer_address, $customer_email, $customer_login_id);
+        $rc = $authstmt->bind_param('ssss', $customer_login_id, $login_username, $login_password, $login_rank);
+
+        $stmt->execute();
+        $authstmt->execute();
+
+        if ($stmt && $authstmt) {
+            $success = "$customer_name, Your Account Has Been Created, Proceed To Login In As Customer";
+        } else {
+            $info = "Please Try Again Or Try Later";
+        }
+    }
+}
 require_once('../partials/head.php');
 ?>
 
@@ -42,7 +83,7 @@ require_once('../partials/head.php');
 
                 <form method="post">
                     <div class="input-group mb-3">
-                        <input type="text" name="customer_name" required class="form-control" placeholder="Full name">
+                        <input type="text" name="customer_name" required class="form-control" placeholder="Full Name">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user text-primary"></span>
@@ -66,7 +107,15 @@ require_once('../partials/head.php');
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password">
+                        <input type="text" name="login_username" required class="form-control" placeholder="Login Username">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user-tag text-primary"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" name="login_password" required class="form-control" placeholder="Login Password">
                         <div class="input-group-append">
                             <div class="input-group-text text-primary">
                                 <span class="fas fa-lock"></span>

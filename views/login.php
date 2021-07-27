@@ -40,7 +40,7 @@ if (isset($_POST['Login'])) {
     if ($rs && $login_rank == 'Administrator') {
         header("location:home");
     } else if ($rs && $login_rank == 'Customer') {
-        header("location:customer_home");
+        header("location:my_home");
     } else {
         $err = "Login Failed, Please Check Your Credentials And Login Permission ";
     }
