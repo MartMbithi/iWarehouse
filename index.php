@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Tue Jul 27 2021
+ * Created on Mon Jul 19 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -27,5 +27,6 @@ if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
     $uri = 'http://';
 }
 $uri .= $_SERVER['HTTP_HOST'];
-header('Location: ' . $uri . '/WMS/views/login');
+/* Redirect To Index Under Views */
+header('Location: ' . $uri . '/JobPortal/views/');
 exit;

@@ -21,15 +21,16 @@
  */
 
 
-function check_login()
+
+/* Check Login  */
+function checklogin()
 {
-	if ((strlen($_SESSION['login_id']) == 0) || (strlen($_SESSION['login_rank']) == 0)) {
+	if ((strlen($_SESSION['login_id']) == 0) && (strlen($_SESSION['login_rank']) == 0)) {
 		$host = $_SERVER['HTTP_HOST'];
 		$uri  = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-		$extra = "login";
+		$extra = "../index";
 		$_SESSION["login_id"] = "";
 		$_SESSION["login_rank"] = "";
-		//$_SESSION["name"] = "";
 		header("Location: http://$host$uri/$extra");
 	}
 }

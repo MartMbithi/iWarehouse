@@ -1,5 +1,8 @@
 {
     "require": {
-        "dompdf/dompdf": "^1.0"
+        "tecnickcom/tcpdf": "^6.4",
+        "phpmailer/phpmailer": "^6.5",
+        "phpoffice/phpspreadsheet": "^1.18",
+        "tecnickcom/tc-lib-barcode": "^1.15"
     }
 }
