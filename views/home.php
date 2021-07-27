@@ -147,6 +147,7 @@ require_once('../partials/head.php');
                                             <th>Ordered Product</th>
                                             <th>Order Date</th>
                                             <th>Order Quantity</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -172,6 +173,9 @@ require_once('../partials/head.php');
                                                 </td>
                                                 <td><?php echo date('d M Y', strtotime($orders->order_date)); ?></td>
                                                 <td><?php echo $orders->order_quantity; ?></td>
+                                                <td>
+                                                    <a href="order?view=<?php echo $orders->order_id; ?>" class="fas fa-eye">View Order</a>
+                                                </td>
                                             </tr>
                                         <?php
                                         } ?>
