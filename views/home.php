@@ -74,7 +74,7 @@ require_once('../partials/head.php');
                         </div>
                         <div class="col-12 col-sm-6 col-md-4">
                             <div class="info-box mb-3">
-                                <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-users"></i></span>
+                                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Customers</span>
@@ -101,7 +101,7 @@ require_once('../partials/head.php');
                         </div>
                         <div class="col-12 col-sm-6 col-md-4">
                             <div class="info-box mb-3">
-                                <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-boxes"></i></span>
+                                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-boxes"></i></span>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Products</span>
@@ -127,7 +127,7 @@ require_once('../partials/head.php');
 
                         <div class="col-12 col-sm-6 col-md-4">
                             <div class="info-box mb-3">
-                                <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-clipboard-check"></i></span>
+                                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-clipboard-check"></i></span>
 
                                 <div class="info-box-content">
                                     <span class="info-box-text">Customer Orders</span>
@@ -137,15 +137,56 @@ require_once('../partials/head.php');
                             </div>
                             <!-- /.info-box -->
                         </div>
+                        <div class="card col-12">
+                            <div class="table-responsive"><br>
+                                <h5 class="text-center text-bold text-primary">Recent Customer Orders</h5>
+                                <table class="table m-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Customer </th>
+                                            <th>Ordered Product</th>
+                                            <th>Order Date</th>
+                                            <th>Order Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $ret = "SELECT * FROM order_table ot
+                                         INNER JOIN customer c ON ot.order_customer_id = c.customer_id 
+                                         INNER JOIN product p ON  ot.order_product_id = p.product_id 
+                                         INNER JOIN categories ct ON p.product_category_id = ct.categories_id";
+                                        $stmt = $mysqli->prepare($ret);
+                                        $stmt->execute(); //ok
+                                        $res = $stmt->get_result();
+                                        while ($orders = $res->fetch_object()) {
+                                        ?>
+                                            <tr>
+                                                <td>
+                                                    Name: <?php echo $orders->customer_name; ?><br>
+                                                    Location: <?php echo $orders->customer_address; ?><br>
+                                                    Email : <?php echo $orders->customer_email; ?><br>
+                                                </td>
+                                                <td>
+                                                    Name: <?php echo $orders->product_name; ?><br>
+                                                    Category: <?php echo $orders->category_name; ?><br>
+                                                </td>
+                                                <td><?php echo date('d M Y', strtotime($orders->order_date)); ?></td>
+                                                <td><?php echo $orders->order_quantity; ?></td>
+                                            </tr>
+                                        <?php
+                                        } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!-- Main Footer -->
+            <?php require_once('../partials/footer.php'); ?>
         </div>
-        <!-- Main Footer -->
-        <?php require_once('../partials/footer.php'); ?>
-    </div>
-    <!-- ./wrapper -->
-    <?php require_once('../partials/scripts.php'); ?>
+        <!-- ./wrapper -->
+        <?php require_once('../partials/scripts.php'); ?>
 </body>
 
 
