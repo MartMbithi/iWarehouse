@@ -21,6 +21,30 @@
  */
 session_start();
 require_once('../config/config.php');
+/* Login */
+if (isset($_POST['Login'])) {
+    $login_username = $_POST['login_username'];
+    $login_password = sha1(md5($_POST['login_password']));
+    $login_rank = $_POST['login_rank'];
+
+    $stmt = $mysqli->prepare("SELECT login_username, login_password, login_rank, login_id  FROM login  WHERE login_username =? AND login_password =?  AND login_rank = ?");
+    $stmt->bind_param('sss', $login_username, $login_password, $login_rank);
+    $stmt->execute(); //execute bind
+
+    $stmt->bind_result($login_username, $login_password, $login_rank, $login_id);
+    $rs = $stmt->fetch();
+    $_SESSION['login_id'] = $login_id;
+    $_SESSION['login_rank'] = $login_rank;
+
+    /* Decide Login User Dashboard Based On User Rank */
+    if ($rs && $login_rank == 'Administrator') {
+        header("location:home");
+    } else if ($rs && $login_rank == 'Customer') {
+        header("location:customer_home");
+    } else {
+        $err = "Login Failed, Please Check Your Credentials And Login Permission ";
+    }
+}
 require_once('../partials/head.php');
 ?>
 
@@ -41,7 +65,7 @@ require_once('../partials/head.php');
                 <p class="login-box-msg text-bold">Sign In To Start Your Session</p>
                 <form method="post">
                     <div class="input-group mb-3">
-                        <input type="text" name="login_username" class="form-control" placeholder="Login Username">
+                        <input type="text" name="login_username" required class="form-control" placeholder="Login Username">
                         <div class="input-group-append">
                             <div class="input-group-text text-primary">
                                 <span class="fas fa-user-tag"></span>
@@ -49,17 +73,17 @@ require_once('../partials/head.php');
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" name="login_password" class="form-control" placeholder="Login Password">
+                        <input type="password" name="login_password" required class="form-control" placeholder="Login Password">
                         <div class="input-group-append">
                             <div class="input-group-text text-primary">
-                                <span class="fas fa-lock"></span>
+                                <span class="fas fa-user-lock"></span>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <label for="remember">Sign In As</label>
-                            <select class="form-control">
+                            <select name="login_rank" required class="form-control">
                                 <option>Administrator</option>
                                 <option>Customer</option>
                             </select>
