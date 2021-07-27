@@ -160,7 +160,7 @@ require_once('../partials/head.php');
                                                 <td><?php echo $products->product_description; ?></td>
                                                 <td>
                                                     <a data-toggle="modal" href="#edit-<?php echo $products->product_id; ?>" class="badge bg-warning">
-                                                        <i class="fas fa-user-edit"></i>
+                                                        <i class="fas fa-edit"></i>
                                                         Update
                                                     </a>
                                                     <!-- Update Modal -->
