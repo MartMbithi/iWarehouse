@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Sat Jul 03 2021
+ * Created on Tue Jul 27 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -24,5 +24,5 @@
 $dbuser = "root";
 $dbpass = "";
 $host = "localhost";
-$db = "ischeduling";
+$db = "warehouse_mis";
 $mysqli = new mysqli($host, $dbuser, $dbpass, $db);

@@ -1,6 +1,6 @@
 <?php
 /*
- * Created on Sat Jul 03 2021
+ * Created on Tue Jul 27 2021
  *
  * The MIT License (MIT)
  * Copyright (c) 2021 MartDevelopers Inc
@@ -24,7 +24,7 @@
 $DB_host = "localhost";
 $DB_user = "root";
 $DB_pass = "";
-$DB_name = "ischeduling";
+$DB_name = "warehouse_mis";
 try {
     $DB_con = new PDO("mysql:host={$DB_host};dbname={$DB_name}", $DB_user, $DB_pass);
     $DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
