@@ -26,26 +26,6 @@ require_once('../config/checklogin.php');
 require_once('../config/codeGen.php');
 checklogin();
 
-/* Add Order */
-if (isset($_POST['add_order'])) {
-    $order_customer_id = $_POST['order_customer_id'];
-    $order_date   = $_POST['order_date'];
-    $order_product_id = $_POST['order_product_id'];
-    $order_quantity = $_POST['order_quantity'];
-
-    $query = "INSERT INTO order_table (order_customer_id, order_date, order_product_id, order_quantity) VALUES(?,?,?,?)";
-    $stmt = $mysqli->prepare($query);
-    $rc = $stmt->bind_param('ssss', $order_customer_id, $order_date, $order_product_id, $order_quantity);
-    $stmt->execute();
-
-    if ($stmt) {
-        $success = "Order Submitted";
-    } else {
-        $info = "Please Try Again Or Try Later";
-    }
-}
-
-
 /* Update Order */
 if (isset($_POST['update_order'])) {
     $order_date   = $_POST['order_date'];
@@ -117,10 +97,9 @@ require_once('../partials/head.php');
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <div class="text-right">
+                            <!-- <div class="text-right">
                                 <button class="btn btn-primary" data-toggle="modal" data-target="#add_modal"> <i class="fas fa-plus"></i> Add Customer Order</button>
                             </div>
-                            <!-- Add Modal -->
                             <div class="modal fade" id="add_modal">
                                 <div class="modal-dialog  modal-lg">
                                     <div class="modal-content" style="border: green 4px solid;">
@@ -183,8 +162,7 @@ require_once('../partials/head.php');
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- End Modal -->
+                            </div> -->
                             <div class="table-responsive">
                                 <hr>
                                 <table class="table m-0">
