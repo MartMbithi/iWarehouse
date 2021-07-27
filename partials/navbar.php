@@ -33,7 +33,7 @@
                         <a href="stores" class="nav-link">Stores</a>
                     </li>
                     <li class="nav-item">
-                        <a href="stores" class="nav-link">Stocks</a>
+                        <a href="stocks" class="nav-link">Stocks</a>
                     </li>
                     <li class="nav-item">
                         <a href="orders" class="nav-link">Orders</a>
@@ -75,10 +75,7 @@
                         <a href="my_home" class="nav-link">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="my_products" class="nav-link">Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="my_stores" class="nav-link">Stores</a>
+                        <a href="my_stocks" class="nav-link">Stocks</a>
                     </li>
                     <li class="nav-item">
                         <a href="my_orders" class="nav-link">Orders</a>
